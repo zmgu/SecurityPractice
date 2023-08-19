@@ -21,3 +21,4 @@ public class UserController {
         return  ResponseEntity.ok().body("회원가입 성공");
     }
 }
+
