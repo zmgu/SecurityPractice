@@ -4,13 +4,11 @@ import com.study.security.domain.User;
 import com.study.security.exception.AppException;
 import com.study.security.exception.ErrorCode;
 import com.study.security.repository.UserRepository;
-import com.study.security.utils.JwtTokenUtil;
+import com.study.security.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Key;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +49,6 @@ public class UserService {
         }
 
         // 앞에서 Exception 안나면 토큰 발행
-        return JwtTokenUtil.createToken(selectedUser.getUserName(), secret, expireTimeMs);
+        return JwtUtil.createToken(selectedUser.getUserName(), secret, expireTimeMs);
     }
 }
