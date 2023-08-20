@@ -16,8 +16,8 @@ public class JwtUtil {
                 .getBody().get("userName", String.class);
     }
 
-    public static boolean isExpired(String token, String key) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token)
+    public static boolean isExpired(String token, String secretKey) {
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token)
                 .getBody().getExpiration().before(new Date());
     }
     public static String createToken(String userName, String secret, Long expireTimeMs) {

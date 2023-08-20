@@ -22,7 +22,7 @@ public class SecurityConfig {
 
     private final UserService userService;
     @Value("${security.jwt.token.secret}")
-    private String key;
+    private String secretKey;
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/예외처리하고 싶은 url", "/예외처리하고 싶은 url");
@@ -33,12 +33,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("/api/v1/**").authenticated()
                         .requestMatchers("/api/v1/users/join", "/api/v1/users/login").permitAll()
+                        .requestMatchers("/api/v1/**").authenticated()
                         .anyRequest().authenticated()
                 ).sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtFilter(userService, key), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
