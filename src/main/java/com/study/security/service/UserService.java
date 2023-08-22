@@ -17,9 +17,9 @@ public class UserService {
    private final UserRepository userRepository;
    private final BCryptPasswordEncoder encoder;
    @Value("${security.jwt.token.secret}")
-   private String secret;
+   private final String secret;
 
-   private final Long expireTimeMs = 1000 * 60 * 60l;
+   private final Long expireTimeMs = 1000 * 60 * 60L;
     public String join(String userName, String password){
 
         // userName 중복
